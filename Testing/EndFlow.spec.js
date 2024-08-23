@@ -4,6 +4,12 @@ const {customtest} = require("../Utlis/test-base");
 
 const Testdata = JSON.parse(JSON.stringify(require("../Utlis/Testdata.json")));
 
+test.beforeAll( async()=>{
+
+    console.log("before hook")
+
+})
+
 for(const data of Testdata)
 {
 

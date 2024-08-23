@@ -5,13 +5,9 @@ const { POManager } = require('../../PageObjects/POManager.spec');
 
 Given('login to website with {string} and {string}', {timeout: 100*1000}, async function (string, string2) {
 
-    const browser = await playwright.chromium.launch({headless: false});
-    const context = await browser.newContext();
-    const page = await context.newPage();
-
-    this.pomanager= new POManager(page);
-    await page.goto("https://rahulshettyacademy.com/client/");
-    await page.waitForLoadState("domcontentloaded");
+    
+    await this.page.goto("https://rahulshettyacademy.com/client/");
+    await this.page.waitForLoadState("domcontentloaded");
     const loginpage=this.pomanager.GetLoginPage();
 
     await loginpage.Login(string, string2);
@@ -32,4 +28,19 @@ Then('Verify the product {string} is displayed in the cart', async function (str
     await cartpage.Check_Product_Visibility(string);
     await cartpage.Navigate_CheckoutPage();
     
+  });
+
+
+  Given('login to website2 with {string} and {string}', async function (string, string2) {
+    const userName=this.page.locator("input[id='username']");
+    const signIn=this.page.locator("#signInBtn");
+
+    await this.page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    await userName.fill(string);
+    await this.page.locator("input#password").fill(string2);
+    signIn.click();
+  });
+
+  Then('validate error', function () {
+    console.log("Errir");
   });
